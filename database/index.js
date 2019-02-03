@@ -12,7 +12,7 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (repos, callback) => {
+let save = (repos) => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
@@ -24,9 +24,26 @@ let save = (repos, callback) => {
   console.log('LETS TEST SOME STUFF', repos[0].id)
   console.log('LETS TEST SOME STUFF', repos[0].name)
   console.log('LETS TEST SOME STUFF', repos[0].forks_count)
-  console.log('LETS TEST SOME STUFF', repos[0].repo_url)
+  console.log('LETS TEST SOME STUFF', repos[0].owner.repos_url)
   console.log('LETS TEST SOME STUFF', repos[0].description)
 
+  repos.forEach((story) => {
+    var story = new Repo({
+      id: story.id,
+      name: story.name,
+      forks_count: story.forks_count,
+      repo_url: story.owner.repos_url,
+      description: story.description
+    })
+
+    story.save((err) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+
+    })
+  })
 
 }
 
