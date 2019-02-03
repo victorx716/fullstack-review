@@ -7,7 +7,7 @@ let getReposByUsername = (username, callback) => {
   // The options object has been provided to help you out, 
   // but you'll have to fill in the URL
   let options = {
-    url: `https://www.api.github.com/users/${username}/repos`,
+    url: `https://api.github.com/users/${username}/repos`,
     headers: {
       'User-Agent': 'request',
       'Authorization': `token ${config.TOKEN}`
@@ -23,11 +23,8 @@ let getReposByUsername = (username, callback) => {
       callback(error);
       return;
     } else {
-      if (!error && response.statusCode === 200) {
         var repos = JSON.parse(body);
-        console.log(repos);
-        callback(null, repos);
-      }
+        callback(null, repos);      
     }
   })
 }
