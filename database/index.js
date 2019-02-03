@@ -17,15 +17,12 @@ let save = (repos) => {
   // This function should save a repo or repos to
   // the MongoDB
   repos = JSON.stringify(repos);
-  console.log('WHAT TYPE OF DATA IS THIS!!!!!!!', typeof repos)
-  console.log('ARE YOU EVEN AN ARAY?', Array.isArray(repos))
-  console.log('IS THIS PARSED', typeof JSON.parse(repos));
   repos = JSON.parse(repos);
-  console.log('LETS TEST SOME STUFF', repos[0].id)
-  console.log('LETS TEST SOME STUFF', repos[0].name)
-  console.log('LETS TEST SOME STUFF', repos[0].forks_count)
-  console.log('LETS TEST SOME STUFF', repos[0].owner.repos_url)
-  console.log('LETS TEST SOME STUFF', repos[0].description)
+  // console.log('LETS TEST SOME STUFF', repos[0].id)
+  // console.log('LETS TEST SOME STUFF', repos[0].name)
+  // console.log('LETS TEST SOME STUFF', repos[0].forks_count)
+  // console.log('LETS TEST SOME STUFF', repos[0].owner.repos_url)
+  // console.log('LETS TEST SOME STUFF', repos[0].description)
 
   repos.forEach((story) => {
     var story = new Repo({
@@ -44,7 +41,18 @@ let save = (repos) => {
 
     })
   })
-
 }
 
+ var getterRepos = (callback) => {
+  Repo.find({}, function(err, repos){
+    if (err) {
+      callback(err);
+      return;
+    };
+    callback(null, repos);
+  });
+}
+
+
 module.exports.save = save;
+module.exports.getterRepos = getterRepos;

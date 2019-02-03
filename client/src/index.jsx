@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
+import getData from './ajaxget';
 
 class App extends React.Component {
   constructor(props) {
@@ -29,6 +30,20 @@ class App extends React.Component {
         console.log('errored out', error)
       }
     })
+  }
+
+  displayRepos() {
+    getData((err, data) => {
+      if (err) {
+        throw(err);
+        return;
+      }
+      this.setState({repos: data});
+    })
+  }
+
+  componentDidMount() {
+    this.displayRepos();
   }
 
   render () {

@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 let app = express();
 
 var getReposByUsername = require('../helpers/github.js').getReposByUsername;
+var getterRepos = require('../database/index.js').getterRepos;
 
 var save = require('../database/index.js').save;
 
@@ -28,9 +29,18 @@ app.post('/repos', function (req, res) {
   });
 });
 
+
 app.get('/repos', function (req, res) {
+   console.log('WOK');
+  
   // TODO - your code here!
   // This route should send back the top 25 repos
+   getterRepos((err, data) => {
+     if(err){
+       res.status(404).send();
+     }
+     res.status(200).send(data);
+   })
 });
 
 let port = 1128;
