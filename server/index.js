@@ -3,12 +3,13 @@ var bodyParser = require('body-parser');
 
 let app = express();
 
-import getReposByUsername from '../helpers/github.js';
-import save from '../database/index.js';
+var getReposByUsername = require('../helpers/github.js').getReposByUsername;
+var save = require('../database/index.js').save;
 
 
 app.use(express.static(__dirname + '/../client/dist'));
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post('/repos', function (req, res) {
@@ -24,7 +25,6 @@ app.post('/repos', function (req, res) {
       save(data);
     }
   });
-  // res.status(200).send(req.body);
 });
 
 app.get('/repos', function (req, res) {

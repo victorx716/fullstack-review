@@ -15,6 +15,10 @@ let getReposByUsername = (username, callback) => {
   };
 
   request(options, (error, response, body) => {
+    console.log(options.url)
+    console.log(response)
+    console.log(body)
+    
     if (error) {
       callback(error);
       return;
@@ -25,7 +29,7 @@ let getReposByUsername = (username, callback) => {
         callback(null, repos);
       }
     }
-  }
+  })
 }
 
 module.exports.getReposByUsername = getReposByUsername;

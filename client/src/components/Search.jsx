@@ -1,5 +1,4 @@
 import React from 'react';
-import { getReposByUsername } from '../../../helpers/github';
 
 class Search extends React.Component {
   constructor(props) {
@@ -20,8 +19,6 @@ class Search extends React.Component {
   search() {
     this.props.onSearch(this.state.term);
   }
-  // componentDidMount(getReposByUsername);
-
 
   render() {
     return (<div>
